@@ -11,7 +11,7 @@
 	> -s superuser
 	> -P 自訂密碼
 * 移除使用者：dropuser <username>
-* 新增資料庫 
+* 新增資料庫：createdb <dbname>
 
 ### Django
 
