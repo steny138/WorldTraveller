@@ -27,7 +27,8 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 1
+
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -46,15 +47,34 @@ DOWNLOAD_DELAY = 3
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
+# SPIDER_MIDDLEWARES = {
 #    'world_traveller_scheduleler.middlewares.WorldTravellerSchedulelerSpiderMiddleware': 543,
-#}
+# }
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'world_traveller_scheduleler.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   	'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware' : None, 
+	'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
+   	'world_traveller_scheduleler.middlewares.RotateUserAgentMiddleware': 1,
+   	'world_traveller_scheduleler.middlewares.ProxyMiddleware': 100
+}
+
+UNQLITE_PATH = "world_traveller_scheduleler/db/unqlite.db"
+
+DATABASE = {
+    'drivername': 'postgres',
+    'host': 'localhost',
+    'port': '5432',
+    'username': 'wt',
+    'password': 'manproposes',
+    'database': 'WorldTraveller'
+}
+
+HTTP_PROXY = [
+	{'ip_port': '47.88.85.75:80', 'user_pass': ''},
+	{'ip_port': '52.14.86.165:3128', 'user_pass': ''}
+]
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -64,9 +84,9 @@ DOWNLOAD_DELAY = 3
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'world_traveller_scheduleler.pipelines.WorldTravellerSchedulelerPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'world_traveller_scheduleler.pipelines.WorldTravellerSchedulelerPipeline': 50,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
