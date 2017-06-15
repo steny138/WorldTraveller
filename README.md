@@ -13,6 +13,11 @@
 * 移除使用者：dropuser <username>
 * 新增資料庫：createdb <dbname>
 
+### Scrapy
+
+* 建立專案：scrapy startproject <scrapy project name>
+* 執行spider: scrapy crawl <spider name>
+
 ### Django
 
 * 新增專案： django-admin.py startproject world_traveller
